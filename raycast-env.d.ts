@@ -13,6 +13,8 @@ type ExtensionPreferences = {}
 declare type Preferences = ExtensionPreferences
 
 declare namespace Preferences {
+  /** Preferences accessible in the `add-from-clipboard` command */
+  export type AddFromClipboard = ExtensionPreferences & {}
   /** Preferences accessible in the `add` command */
   export type Add = ExtensionPreferences & {}
   /** Preferences accessible in the `open` command */
@@ -20,6 +22,8 @@ declare namespace Preferences {
 }
 
 declare namespace Arguments {
+  /** Arguments passed to the `add-from-clipboard` command */
+  export type AddFromClipboard = {}
   /** Arguments passed to the `add` command */
   export type Add = {}
   /** Arguments passed to the `open` command */

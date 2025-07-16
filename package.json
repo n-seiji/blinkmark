@@ -8,10 +8,16 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "add",
-      "title": "Add",
+      "name": "add-from-clipboard",
+      "title": "Add from Clipboard",
       "description": "クリップボードのリンクを追加する。\nクリップボードにコピーされているものがurl以外だった場合はメッセージだけ出して終了。\nタイトルはwebサイトと通信をしてタイトルのmeta情報を取得する。",
       "mode": "no-view"
+    },
+    {
+      "name": "add",
+      "title": "Add Bookmark",
+      "description": "URLとタイトルを入力してブックマークを追加する。\nURLを入力するとタイトルを自動取得して填める。",
+      "mode": "view"
     },
     {
       "name": "open",
