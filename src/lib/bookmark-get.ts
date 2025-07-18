@@ -1,5 +1,6 @@
 import { LocalStorage } from "@raycast/api";
 import { deleteBookmark } from "./bookmark-delete";
+import { EXPIRY_DAYS, IDS_KEY, STORAGE_KEY } from "./constant";
 import type { BookmarkItem } from "./types";
 
 export async function getBookmarks(): Promise<BookmarkItem[]> {

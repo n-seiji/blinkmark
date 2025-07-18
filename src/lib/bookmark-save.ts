@@ -1,4 +1,5 @@
 import { LocalStorage } from "@raycast/api";
+import { IDS_KEY, STORAGE_KEY } from "./constant";
 import type { BookmarkItem } from "./types";
 
 export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
@@ -19,9 +20,11 @@ export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
 	// Check if bookmark with same ID already exists
 	const bookmarkKey = `${STORAGE_KEY}_${bookmark.id}`;
 	const existingBookmarkJson = await LocalStorage.getItem<string>(bookmarkKey);
-	
+
 	if (existingBookmarkJson) {
-		throw new Error(`Bookmark with ID ${bookmark.id} already exists for URL: ${bookmark.url}`);
+		throw new Error(
+			`Bookmark with ID ${bookmark.id} already exists for URL: ${bookmark.url}`,
+		);
 	}
 
 	// Save bookmark data

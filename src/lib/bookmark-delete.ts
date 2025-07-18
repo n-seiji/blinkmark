@@ -1,4 +1,5 @@
 import { LocalStorage } from "@raycast/api";
+import { IDS_KEY, STORAGE_KEY } from "./constant";
 
 export async function deleteBookmark(id: string): Promise<void> {
 	const bookmarkKey = `${STORAGE_KEY}_${id}`;

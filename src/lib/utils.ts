@@ -1,5 +1,6 @@
 import { LocalStorage } from "@raycast/api";
 import { createHash } from "node:crypto";
+import { STORAGE_KEY } from "./constant";
 import type { BookmarkItem } from "./types";
 
 export function isValidUrl(string: string): boolean {
