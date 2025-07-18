@@ -14,32 +14,24 @@ export default function Command() {
 
 	const { handleSubmit, itemProps, setValue, reset } = useForm<FormValues>({
 		onSubmit: async (values) => {
-			try {
-				const now = Date.now();
-				const bookmark: BookmarkItem = {
-					id: generateId(),
-					url: values.url.trim(),
-					title: values.title.trim(),
-					createdAt: now,
-					lastAccessedAt: now,
-				};
+			const now = Date.now();
+			const bookmark: BookmarkItem = {
+				id: generateId(),
+				url: values.url.trim(),
+				title: values.title.trim(),
+				createdAt: now,
+				lastAccessedAt: now,
+			};
 
-				await saveBookmark(bookmark);
+			await saveBookmark(bookmark);
 
-				await showToast({
-					style: Toast.Style.Success,
-					title: "Bookmark added",
-					message: bookmark.title,
-				});
+			await showToast({
+				style: Toast.Style.Success,
+				title: "Bookmark added",
+				message: bookmark.title,
+			});
 
-				reset();
-			} catch (error) {
-				await showToast({
-					style: Toast.Style.Failure,
-					title: "Failed to add bookmark",
-					message: error instanceof Error ? error.message : "Unknown error",
-				});
-			}
+			reset();
 		},
 		validation: {
 			url: (value) => {
