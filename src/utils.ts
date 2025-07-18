@@ -2,7 +2,7 @@ import { LocalStorage } from "@raycast/api";
 import { parse } from "node-html-parser";
 import { BookmarkItem } from "./types";
 
-const STORAGE_KEY = "blinkmark_bookmarks";
+const STORAGE_KEY = "vanishlink_bookmarks";
 const EXPIRY_DAYS = 7;
 
 export function isValidUrl(string: string): boolean {

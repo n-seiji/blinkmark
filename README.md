@@ -1,12 +1,12 @@
-# BlinkMark
+# VanishLink
 
-A Raycast Extension for efficiently managing temporary links that you need for short periods
+A Raycast Extension for efficiently managing temporary links that vanish after inactivity
 
 [日本語](README.ja.md)
 
 ## Overview
 
-BlinkMark is a Raycast Extension designed to efficiently manage links that you need for short periods. It allows you to easily add and manage links that don't warrant permanent bookmarks but require quick access through shortcuts.
+VanishLink is a Raycast Extension designed to efficiently manage links that you need for short periods. It allows you to easily add and manage links that don't warrant permanent bookmarks but require quick access through shortcuts.
 
 ## Features
 
@@ -23,13 +23,13 @@ BlinkMark is a Raycast Extension designed to efficiently manage links that you n
 Adds a link from clipboard to bookmarks.
 
 - Copy URL to clipboard
-- Run `blinkmark add-from-clipboard`
+- Run `vanishlink add-from-clipboard`
 - Page title is automatically fetched and bookmark is added
 
 ### Add Bookmark
 Add links with custom titles using a form interface.
 
-- Run `blinkmark add`
+- Run `vanishlink add`
 - Enter URL and title in the form
 - URL automatically fetches page title (editable)
 - Submit to save bookmark
@@ -37,7 +37,7 @@ Add links with custom titles using a form interface.
 ### Open
 Search and manage saved links.
 
-- Run `blinkmark open`
+- Run `vanishlink open`
 - Search links by title or URL
 - Press Enter to open link (updates last access time)
 - Delete links via action panel
@@ -69,22 +69,22 @@ This extension is planned for publication on the Raycast Store.
 
 1. **Adding links from clipboard**
    - Copy the URL of the webpage you want to add
-   - Open Raycast and run `blinkmark add-from-clipboard`
+   - Open Raycast and run `vanishlink add-from-clipboard`
    - Title is automatically fetched and bookmark is added
 
 2. **Adding links manually**
-   - Open Raycast and run `blinkmark add`
+   - Open Raycast and run `vanishlink add`
    - Enter URL and title in the form
    - URL automatically fetches page title (can be edited)
    - Submit to save bookmark
 
 3. **Searching and opening links**
-   - Open Raycast and run `blinkmark open`
+   - Open Raycast and run `vanishlink open`
    - Search for links using the search bar
    - Press Enter to open link (last access time is updated)
 
 4. **Deleting links**
-   - Select a link in `blinkmark open`
+   - Select a link in `vanishlink open`
    - Use action panel (`Cmd + K`) to select "Delete Link"
 
 ## Technical Specifications

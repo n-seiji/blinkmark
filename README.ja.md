@@ -1,10 +1,10 @@
-# BlinkMark
+# VanishLink
 
 一時的に必要なリンクを素早く管理するためのRaycast Extension
 
 ## 概要
 
-BlinkMarkは、短期間だけ必要なリンクを効率的に管理するためのRaycast Extensionです。Bookmarkするほどでもないけれど、ショートカットでアクセスしたいリンクを簡単に追加・管理できます。
+VanishLinkは、短期間だけ必要なリンクを効率的に管理するためのRaycast Extensionです。Bookmarkするほどでもないけれど、ショートカットでアクセスしたいリンクを簡単に追加・管理できます。
 
 ## 特徴
 
@@ -16,17 +16,25 @@ BlinkMarkは、短期間だけ必要なリンクを効率的に管理するた�
 
 ## コマンド
 
-### Add
+### Add from Clipboard
 クリップボードのURLをブックマークに追加します。
 
 - クリップボードにURLをコピー
-- `blinkmark add`を実行
+- `vanishlink add-from-clipboard`を実行
 - Webページのタイトルが自動取得され、ブックマークに追加
+
+### Add Bookmark
+フォームでURLとタイトルを入力してブックマークを追加します。
+
+- `vanishlink add`を実行
+- フォームでURLとタイトルを入力
+- URLを入力するとタイトルが自動取得される（編集可能）
+- 送信してブックマークを保存
 
 ### Open
 保存されたリンクを検索・管理します。
 
-- `blinkmark open`を実行
+- `vanishlink open`を実行
 - リンクを検索（タイトルまたはURL）
 - Enterキーでリンクを開く
 - アクションパネルから削除も可能
@@ -56,18 +64,24 @@ npm run fix-lint
 
 ## 使用方法
 
-1. **リンクの追加**
+1. **クリップボードからリンクの追加**
    - 追加したいWebページのURLをクリップボードにコピー
-   - Raycastを開いて`blinkmark add`を実行
+   - Raycastを開いて`vanishlink add-from-clipboard`を実行
    - 自動的にタイトルが取得され、ブックマークに追加されます
 
-2. **リンクの検索・開く**
-   - Raycastを開いて`blinkmark open`を実行
+2. **手動でリンクの追加**
+   - Raycastを開いて`vanishlink add`を実行
+   - フォームでURLとタイトルを入力
+   - URLを入力するとタイトルが自動取得される（編集可能）
+   - 送信してブックマークを保存
+
+3. **リンクの検索・開く**
+   - Raycastを開いて`vanishlink open`を実行
    - 検索バーでリンクを検索
    - Enterキーでリンクを開く（最終アクセス日時が更新されます）
 
-3. **リンクの削除**
-   - `blinkmark open`でリンクを選択
+4. **リンクの削除**
+   - `vanishlink open`でリンクを選択
    - アクションパネル（`Cmd + K`）から「リンクを削除」を選択
 
 ## 技術仕様
