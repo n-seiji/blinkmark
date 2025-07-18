@@ -10,19 +10,19 @@
     {
       "name": "add-from-clipboard",
       "title": "Add from Clipboard",
-      "description": "クリップボードのリンクを追加する。\nクリップボードにコピーされているものがurl以外だった場合はメッセージだけ出して終了。\nタイトルはwebサイトと通信をしてタイトルのmeta情報を取得する。",
+      "description": "Add a link from clipboard. If clipboard content is not a URL, show error message and exit. Title is fetched from website meta information.",
       "mode": "no-view"
     },
     {
       "name": "add",
       "title": "Add Bookmark",
-      "description": "URLとタイトルを入力してブックマークを追加する。\nURLを入力するとタイトルを自動取得して填める。",
+      "description": "Add a bookmark by entering URL and title. Title is automatically fetched when URL is entered.",
       "mode": "view"
     },
     {
       "name": "open",
       "title": "Open",
-      "description": "登録してあるリンクから対象をurlの文字一致 or タイトルの文字一致で検索でき、enterでchromeが開く。",
+      "description": "Search registered links by URL or title text matching, press enter to open in browser.",
       "mode": "view"
     }
   ],
