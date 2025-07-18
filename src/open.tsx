@@ -26,8 +26,8 @@ export default function Command() {
 		} catch (error) {
 			await showToast({
 				style: Toast.Style.Failure,
-				title: "エラーが発生しました",
-				message: error instanceof Error ? error.message : "不明なエラー",
+				title: "An error occurred",
+				message: error instanceof Error ? error.message : "Unknown error",
 			});
 		} finally {
 			setIsLoading(false);
@@ -41,8 +41,8 @@ export default function Command() {
 		} catch (error) {
 			await showToast({
 				style: Toast.Style.Failure,
-				title: "URLを開けませんでした",
-				message: error instanceof Error ? error.message : "不明なエラー",
+				title: "Failed to open URL",
+				message: error instanceof Error ? error.message : "Unknown error",
 			});
 		}
 	};
@@ -53,13 +53,13 @@ export default function Command() {
 			await loadBookmarks();
 			await showToast({
 				style: Toast.Style.Success,
-				title: "リンクを削除しました",
+				title: "Link deleted",
 			});
 		} catch (error) {
 			await showToast({
 				style: Toast.Style.Failure,
-				title: "削除に失敗しました",
-				message: error instanceof Error ? error.message : "不明なエラー",
+				title: "Failed to delete",
+				message: error instanceof Error ? error.message : "Unknown error",
 			});
 		}
 	};
@@ -71,28 +71,28 @@ export default function Command() {
 		const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
 		if (diffDays === 0) {
-			return "今日";
+			return "Today";
 		}
 		if (diffDays === 1) {
-			return "昨日";
+			return "Yesterday";
 		}
 		if (diffDays < 7) {
-			return `${diffDays}日前`;
+			return `${diffDays} days ago`;
 		}
-		return date.toLocaleDateString("ja-JP");
+		return date.toLocaleDateString("en-US");
 	};
 
 	return (
 		<List
 			isLoading={isLoading}
-			searchBarPlaceholder="リンクを検索..."
+			searchBarPlaceholder="Search links..."
 			filtering={true}
 		>
 			{bookmarks.length === 0 ? (
 				<List.EmptyView
 					icon={Icon.Bookmark}
-					title="保存されたリンクがありません"
-					description="addコマンドでリンクを追加してください"
+					title="No saved links"
+					description="Use add commands to add links"
 				/>
 			) : (
 				bookmarks.map((bookmark) => (
@@ -101,18 +101,18 @@ export default function Command() {
 						title={bookmark.title}
 						subtitle={bookmark.url}
 						accessories={[
-							{ text: `最終アクセス: ${formatDate(bookmark.lastAccessedAt)}` },
+							{ text: `Last accessed: ${formatDate(bookmark.lastAccessedAt)}` },
 						]}
 						keywords={[bookmark.title, bookmark.url]}
 						actions={
 							<ActionPanel>
 								<Action
-									title="URLを開く"
+									title="Open URL"
 									icon={Icon.Globe}
 									onAction={() => handleOpenUrl(bookmark)}
 								/>
 								<Action
-									title="リンクを削除"
+									title="Delete Link"
 									icon={Icon.Trash}
 									style={Action.Style.Destructive}
 									onAction={() => handleDeleteBookmark(bookmark.id)}

@@ -28,7 +28,7 @@ export default function Command() {
 
 				await showToast({
 					style: Toast.Style.Success,
-					title: "ブックマークを追加しました",
+					title: "Bookmark added",
 					message: bookmark.title,
 				});
 
@@ -36,18 +36,18 @@ export default function Command() {
 			} catch (error) {
 				await showToast({
 					style: Toast.Style.Failure,
-					title: "ブックマークの追加に失敗しました",
-					message: error instanceof Error ? error.message : "不明なエラー",
+					title: "Failed to add bookmark",
+					message: error instanceof Error ? error.message : "Unknown error",
 				});
 			}
 		},
 		validation: {
 			url: (value) => {
 				if (!value || value.trim().length === 0) {
-					return "URLを入力してください";
+					return "Please enter a URL";
 				}
 				if (!isValidUrl(value.trim())) {
-					return "有効なURLを入力してください";
+					return "Please enter a valid URL";
 				}
 			},
 			title: FormValidation.Required,
@@ -79,7 +79,7 @@ export default function Command() {
 			actions={
 				<ActionPanel>
 					<Action.SubmitForm
-						title="ブックマークを追加"
+						title="Add Bookmark"
 						icon="bookmark"
 						onSubmit={handleSubmit}
 					/>
@@ -98,8 +98,8 @@ export default function Command() {
 				}}
 			/>
 			<Form.TextField
-				title="タイトル"
-				placeholder={isLoadingTitle ? "タイトルを取得中..." : "ページタイトル"}
+				title="Title"
+				placeholder={isLoadingTitle ? "Fetching title..." : "Page title"}
 				{...itemProps.title}
 				value={itemProps.title.value || ""}
 			/>

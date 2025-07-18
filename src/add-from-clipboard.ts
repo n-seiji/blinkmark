@@ -9,8 +9,8 @@ export default async function Command() {
 		if (!clipboardText) {
 			await showToast({
 				style: Toast.Style.Failure,
-				title: "クリップボードが空です",
-				message: "URLをクリップボードにコピーしてください",
+				title: "Clipboard is empty",
+				message: "Please copy a URL to clipboard",
 			});
 			return;
 		}
@@ -20,16 +20,16 @@ export default async function Command() {
 		if (!isValidUrl(trimmedText)) {
 			await showToast({
 				style: Toast.Style.Failure,
-				title: "無効なURL",
-				message: "クリップボードの内容がURLではありません",
+				title: "Invalid URL",
+				message: "Clipboard content is not a URL",
 			});
 			return;
 		}
 
 		await showToast({
 			style: Toast.Style.Animated,
-			title: "URLを処理中...",
-			message: "タイトルを取得しています",
+			title: "Processing URL...",
+			message: "Fetching title",
 		});
 
 		let title: string;
@@ -54,14 +54,14 @@ export default async function Command() {
 
 		await showToast({
 			style: Toast.Style.Success,
-			title: "リンクを追加しました",
+			title: "Link added",
 			message: title,
 		});
 	} catch (error) {
 		await showToast({
 			style: Toast.Style.Failure,
-			title: "エラーが発生しました",
-			message: error instanceof Error ? error.message : "不明なエラー",
+			title: "An error occurred",
+			message: error instanceof Error ? error.message : "Unknown error",
 		});
 	}
 }

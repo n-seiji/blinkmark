@@ -17,7 +17,7 @@ export function isValidUrl(string: string): boolean {
 export async function fetchPageTitle(url: string): Promise<string> {
 	try {
 		const controller = new AbortController();
-		const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒タイムアウト
+		const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
 
 		const response = await fetch(url, {
 			signal: controller.signal,
@@ -109,7 +109,7 @@ export async function getBookmarks(): Promise<BookmarkItem[]> {
 			}
 		}
 
-		// インデックスから期限切れのIDを削除
+		// Remove expired IDs from index
 		if (expiredIds.length > 0) {
 			const updatedIndex = bookmarkIds.filter((id) => !expiredIds.includes(id));
 			await LocalStorage.setItem(indexKey, JSON.stringify(updatedIndex));
@@ -124,7 +124,7 @@ export async function getBookmarks(): Promise<BookmarkItem[]> {
 
 export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
 	try {
-		// データの検証
+		// Validate data
 		if (!bookmark.id || !bookmark.url || !bookmark.title) {
 			throw new Error("Invalid bookmark data: missing required fields");
 		}
@@ -138,10 +138,10 @@ export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
 
 		console.log("Saving bookmark:", bookmark);
 
-		// 各ブックマークを個別のキーで保存する方式に変更
+		// Save each bookmark with individual key
 		const bookmarkKey = `${STORAGE_KEY}_${bookmark.id}`;
 
-		// クリーンなデータオブジェクトを作成（プロトタイプチェーンなどを除去）
+		// Create clean data object (remove prototype chain, etc.)
 		const cleanBookmark: BookmarkItem = {
 			id: String(bookmark.id),
 			url: String(bookmark.url),
@@ -150,11 +150,11 @@ export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
 			lastAccessedAt: Number(bookmark.lastAccessedAt),
 		};
 
-		// JSON文字列として保存
+		// Save as JSON string
 		const bookmarkJson = JSON.stringify(cleanBookmark);
 		await LocalStorage.setItem(bookmarkKey, bookmarkJson);
 
-		// インデックスを更新（存在するブックマークIDの一覧を保持）
+		// Update index (maintain list of existing bookmark IDs)
 		const indexKey = `${STORAGE_KEY}_index`;
 		const existingIndexJson = await LocalStorage.getItem<string>(indexKey);
 		const existingIndex: string[] = existingIndexJson
@@ -194,10 +194,10 @@ export async function deleteBookmark(id: string): Promise<void> {
 		const bookmarkKey = `${STORAGE_KEY}_${id}`;
 		const indexKey = `${STORAGE_KEY}_index`;
 
-		// ブックマークデータを削除
+		// Delete bookmark data
 		await LocalStorage.removeItem(bookmarkKey);
 
-		// インデックスからIDを削除
+		// Remove ID from index
 		const existingIndexJson = await LocalStorage.getItem<string>(indexKey);
 		const existingIndex: string[] = existingIndexJson
 			? JSON.parse(existingIndexJson)
