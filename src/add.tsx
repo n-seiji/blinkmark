@@ -1,8 +1,10 @@
 import { Action, ActionPanel, Form, Toast, showToast } from "@raycast/api";
 import { FormValidation, useForm } from "@raycast/utils";
 import { useCallback, useState } from "react";
-import type { BookmarkItem } from "./types";
-import { fetchPageTitle, generateId, isValidUrl, saveBookmark } from "./utils";
+import { saveBookmark } from "./lib/bookmark-save";
+import { fetchPageTitle } from "./lib/fetch-page-title";
+import type { BookmarkItem } from "./lib/types";
+import { generateId, isValidUrl } from "./lib/utils";
 
 interface FormValues {
 	url: string;
@@ -16,7 +18,7 @@ export default function Command() {
 		onSubmit: async (values) => {
 			const now = Date.now();
 			const bookmark: BookmarkItem = {
-				id: generateId(),
+				id: generateId(values.url.trim()),
 				url: values.url.trim(),
 				title: values.title.trim(),
 				createdAt: now,

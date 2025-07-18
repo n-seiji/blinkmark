@@ -1,6 +1,8 @@
 import { Clipboard, Toast, showToast } from "@raycast/api";
-import type { BookmarkItem } from "./types";
-import { fetchPageTitle, generateId, isValidUrl, saveBookmark } from "./utils";
+import { saveBookmark } from "./lib/bookmark-save";
+import { fetchPageTitle } from "./lib/fetch-page-title";
+import type { BookmarkItem } from "./lib/types";
+import { generateId, isValidUrl } from "./lib/utils";
 
 export default async function Command() {
 	const clipboardText = await Clipboard.readText();
@@ -42,7 +44,7 @@ export default async function Command() {
 	const now = Date.now();
 
 	const bookmark: BookmarkItem = {
-		id: generateId(),
+		id: generateId(trimmedText),
 		url: trimmedText,
 		title,
 		createdAt: now,

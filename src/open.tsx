@@ -8,8 +8,23 @@ import {
 	showToast,
 } from "@raycast/api";
 import { useEffect, useState } from "react";
-import type { BookmarkItem } from "./types";
-import { deleteBookmark, getBookmarks, updateLastAccessed } from "./utils";
+import { deleteBookmark } from "./lib/bookmark-delete";
+import { getBookmarks } from "./lib/bookmark-get";
+import type { BookmarkItem } from "./lib/types";
+import { updateLastAccessed } from "./lib/utils";
+
+const handleOpenUrl = async (bookmark: BookmarkItem) => {
+	try {
+		await updateLastAccessed(bookmark.id);
+		await open(bookmark.url);
+	} catch (error) {
+		await showToast({
+			style: Toast.Style.Failure,
+			title: "Failed to open URL",
+			message: error instanceof Error ? error.message : "Unknown error",
+		});
+	}
+};
 
 export default function Command() {
 	const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
@@ -31,19 +46,6 @@ export default function Command() {
 			});
 		} finally {
 			setIsLoading(false);
-		}
-	};
-
-	const handleOpenUrl = async (bookmark: BookmarkItem) => {
-		try {
-			await updateLastAccessed(bookmark.id);
-			await open(bookmark.url);
-		} catch (error) {
-			await showToast({
-				style: Toast.Style.Failure,
-				title: "Failed to open URL",
-				message: error instanceof Error ? error.message : "Unknown error",
-			});
 		}
 	};
 
