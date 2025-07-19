@@ -4,7 +4,7 @@ import { fetchPageTitle } from "./lib/fetch-page-title";
 import type { BookmarkItem } from "./lib/types";
 import { generateId, isValidUrl } from "./lib/utils";
 
-export default async function Command() {
+export default async function AddFromClipboardCommand() {
 	const clipboardText = await Clipboard.readText();
 
 	if (!clipboardText) {

@@ -26,7 +26,7 @@ const handleOpenUrl = async (bookmark: BookmarkItem) => {
 	}
 };
 
-export default function Command() {
+export default function OpenCommand() {
 	const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 

@@ -11,7 +11,7 @@ interface FormValues {
 	title: string;
 }
 
-export default function Command() {
+export default function AddCommand() {
 	const [isLoadingTitle, setIsLoadingTitle] = useState(false);
 
 	const { handleSubmit, itemProps, setValue, reset } = useForm<FormValues>({
