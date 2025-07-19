@@ -1,6 +1,5 @@
 import { LocalStorage } from "@raycast/api";
 import { createHash } from "node:crypto";
-import { STORAGE_KEY } from "./constant";
 import type { BookmarkItem } from "./types";
 
 export function isValidUrl(string: string): boolean {
@@ -13,13 +12,12 @@ export function isValidUrl(string: string): boolean {
 }
 
 export async function updateLastAccessed(id: string): Promise<void> {
-	const bookmarkKey = `${STORAGE_KEY}_${id}`;
-	const bookmarkJson = await LocalStorage.getItem<string>(bookmarkKey);
+	const bookmarkJson = await LocalStorage.getItem<string>(id);
 
 	if (bookmarkJson) {
 		const bookmark: BookmarkItem = JSON.parse(bookmarkJson);
 		bookmark.lastAccessedAt = Date.now();
-		await LocalStorage.setItem(bookmarkKey, JSON.stringify(bookmark));
+		await LocalStorage.setItem(id, JSON.stringify(bookmark));
 	}
 }
 

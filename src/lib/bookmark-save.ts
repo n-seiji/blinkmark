@@ -1,10 +1,9 @@
 import { LocalStorage } from "@raycast/api";
-import { IDS_KEY, STORAGE_KEY } from "./constant";
 import type { BookmarkItem } from "./types";
 
 export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
 	// Validate data
-	if (!bookmark.id || !bookmark.url || !bookmark.title) {
+	if (!bookmark.url || !bookmark.title) {
 		throw new Error("Invalid bookmark data: missing required fields");
 	}
 
@@ -18,8 +17,7 @@ export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
 	console.debug("Saving bookmark:", bookmark);
 
 	// Check if bookmark with same ID already exists
-	const bookmarkKey = `${STORAGE_KEY}_${bookmark.id}`;
-	const existingBookmarkJson = await LocalStorage.getItem<string>(bookmarkKey);
+	const existingBookmarkJson = await LocalStorage.getItem<string>(bookmark.id);
 
 	if (existingBookmarkJson) {
 		throw new Error(
@@ -29,18 +27,7 @@ export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
 
 	// Save bookmark data
 	const bookmarkJson = JSON.stringify(bookmark);
-	await LocalStorage.setItem(bookmarkKey, bookmarkJson);
-
-	// Update index (maintain list of existing bookmark IDs)
-	const existingIndexJson = await LocalStorage.getItem<string>(IDS_KEY);
-	const existingIndex: string[] = existingIndexJson
-		? JSON.parse(existingIndexJson)
-		: [];
-
-	if (!existingIndex.includes(bookmark.id)) {
-		existingIndex.push(bookmark.id);
-		await LocalStorage.setItem(IDS_KEY, JSON.stringify(existingIndex));
-	}
+	await LocalStorage.setItem(bookmark.id, bookmarkJson);
 
 	console.debug("Bookmark saved successfully");
 }
