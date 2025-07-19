@@ -69,7 +69,10 @@ export default function OpenCommand() {
 	function EditBookmarkForm({
 		bookmark,
 		onEdit,
-	}: { bookmark: BookmarkItem; onEdit: () => void }) {
+	}: {
+		bookmark: BookmarkItem;
+		onEdit: () => void;
+	}) {
 		const { pop } = useNavigation();
 		const [url, setUrl] = useState(bookmark.url);
 		const [title, setTitle] = useState(bookmark.title);
