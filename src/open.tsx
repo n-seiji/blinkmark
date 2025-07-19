@@ -50,20 +50,12 @@ export default function Command() {
 	};
 
 	const handleDeleteBookmark = async (id: string) => {
-		try {
-			await deleteBookmark(id);
-			await loadBookmarks();
-			await showToast({
-				style: Toast.Style.Success,
-				title: "Link deleted",
-			});
-		} catch (error) {
-			await showToast({
-				style: Toast.Style.Failure,
-				title: "Failed to delete",
-				message: error instanceof Error ? error.message : "Unknown error",
-			});
-		}
+		await deleteBookmark(id);
+		loadBookmarks();
+		await showToast({
+			style: Toast.Style.Success,
+			title: "Link deleted",
+		});
 	};
 
 	const formatDate = (timestamp: number): string => {
