@@ -7,7 +7,10 @@
 
 /* eslint-disable @typescript-eslint/ban-types */
 
-type ExtensionPreferences = {}
+type ExtensionPreferences = {
+  /** Expired Time - View extension's README for instructions. */
+  "expiredTime": "1day" | "1week" | "2week" | "1month" | "3month" | "6month" | "1year"
+}
 
 /** Preferences accessible in all the extension's commands */
 declare type Preferences = ExtensionPreferences
