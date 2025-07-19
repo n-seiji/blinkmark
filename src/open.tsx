@@ -111,9 +111,7 @@ export default function OpenCommand() {
 						key={bookmark.id}
 						title={bookmark.title}
 						subtitle={bookmark.url}
-						accessories={[
-							{ text: `Last accessed: ${formatDate(bookmark.lastAccessedAt)}` },
-						]}
+						accessories={[{ text: ` ${formatDate(bookmark.lastAccessedAt)}` }]}
 						keywords={[bookmark.title, bookmark.url]}
 						actions={
 							<ActionPanel>
