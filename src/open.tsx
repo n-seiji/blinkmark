@@ -1,11 +1,14 @@
 import {
 	Action,
 	ActionPanel,
+	Form,
 	Icon,
 	List,
+	LocalStorage,
 	Toast,
 	open,
 	showToast,
+	useNavigation,
 } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { deleteBookmark } from "./lib/bookmark-delete";
@@ -29,6 +32,7 @@ const handleOpenUrl = async (bookmark: BookmarkItem) => {
 export default function OpenCommand() {
 	const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const { push } = useNavigation();
 
 	useEffect(() => {
 		loadBookmarks();
@@ -57,6 +61,76 @@ export default function OpenCommand() {
 			title: "Link deleted",
 		});
 	};
+
+	const handleEditBookmark = (bookmark: BookmarkItem) => {
+		push(<EditBookmarkForm bookmark={bookmark} onEdit={loadBookmarks} />);
+	};
+
+	function EditBookmarkForm({
+		bookmark,
+		onEdit,
+	}: { bookmark: BookmarkItem; onEdit: () => void }) {
+		const { pop } = useNavigation();
+		const [url, setUrl] = useState(bookmark.url);
+		const [title, setTitle] = useState(bookmark.title);
+
+		const handleSubmit = async () => {
+			if (!url.trim() || !title.trim()) {
+				await showToast({
+					style: Toast.Style.Failure,
+					title: "Missing fields",
+					message: "URL and title are required",
+				});
+				return;
+			}
+
+			// Update the bookmark with new values
+			const updatedBookmark: BookmarkItem = {
+				...bookmark,
+				url: url.trim(),
+				title: title.trim(),
+			};
+
+			// Save updated bookmark (this will overwrite the existing one)
+			await LocalStorage.setItem(bookmark.id, JSON.stringify(updatedBookmark));
+
+			await showToast({
+				style: Toast.Style.Success,
+				title: "Bookmark updated",
+			});
+
+			onEdit();
+			pop();
+		};
+
+		return (
+			<Form
+				actions={
+					<ActionPanel>
+						<Action.SubmitForm
+							title="Update Bookmark"
+							onSubmit={handleSubmit}
+						/>
+					</ActionPanel>
+				}
+			>
+				<Form.TextField
+					id="url"
+					title="URL"
+					value={url}
+					onChange={setUrl}
+					placeholder="https://example.com"
+				/>
+				<Form.TextField
+					id="title"
+					title="Title"
+					value={title}
+					onChange={setTitle}
+					placeholder="Page title"
+				/>
+			</Form>
+		);
+	}
 
 	const formatDate = (timestamp: number): string => {
 		const date = new Date(timestamp);
@@ -119,6 +193,11 @@ export default function OpenCommand() {
 									title="Open URL"
 									icon={Icon.Globe}
 									onAction={() => handleOpenUrl(bookmark)}
+								/>
+								<Action
+									title="Edit Bookmark"
+									icon={Icon.Pencil}
+									onAction={() => handleEditBookmark(bookmark)}
 								/>
 								<Action
 									title="Delete Link"
