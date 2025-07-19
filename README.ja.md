@@ -1,4 +1,8 @@
-# VanishLink
+# vanishlink
+
+<p align="center">
+   <img src="assets/extension-icon.png" alt="VanishLink Icon" width="100" height="100">
+</p>
 
 一時的に必要なリンクを素早く管理するためのRaycast Extension
 
@@ -17,6 +21,7 @@ VanishLinkは、短期間だけ必要なリンクを効率的に管理するた�
 ## コマンド
 
 ### Add from Clipboard
+
 クリップボードのURLをブックマークに追加します。
 
 - クリップボードにURLをコピー
@@ -24,6 +29,7 @@ VanishLinkは、短期間だけ必要なリンクを効率的に管理するた�
 - Webページのタイトルが自動取得され、ブックマークに追加
 
 ### Add Bookmark
+
 フォームでURLとタイトルを入力してブックマークを追加します。
 
 - `vanishlink add`を実行
@@ -32,6 +38,7 @@ VanishLinkは、短期間だけ必要なリンクを効率的に管理するた�
 - 送信してブックマークを保存
 
 ### Open
+
 保存されたリンクを検索・管理します。
 
 - `vanishlink open`を実行
@@ -42,6 +49,7 @@ VanishLinkは、短期間だけ必要なリンクを効率的に管理するた�
 ## インストール
 
 ### 開発環境
+
 ```bash
 # 依存関係のインストール
 npm install
@@ -60,6 +68,7 @@ npm run fix-lint
 ```
 
 ### Raycast Store
+
 このExtensionはRaycast Storeで公開予定です。
 
 ## 使用方法
@@ -87,7 +96,7 @@ npm run fix-lint
 ## 技術仕様
 
 - **対応プラットフォーム**: macOS
-- **依存関係**: 
+- **依存関係**:
   - @raycast/api
   - @raycast/utils
   - node-html-parser

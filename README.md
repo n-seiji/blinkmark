@@ -1,4 +1,8 @@
-# VanishLink
+# vanishlink
+
+<p align="center">
+   <img src="assets/extension-icon.png" alt="VanishLink Icon" width="100" height="100">
+</p>
 
 A Raycast Extension for efficiently managing temporary links that vanish after inactivity
 
@@ -20,6 +24,7 @@ VanishLink is a Raycast Extension designed to efficiently manage links that you 
 ## Commands
 
 ### Add from Clipboard
+
 Adds a link from clipboard to bookmarks.
 
 - Copy URL to clipboard
@@ -27,6 +32,7 @@ Adds a link from clipboard to bookmarks.
 - Page title is automatically fetched and bookmark is added
 
 ### Add Bookmark
+
 Add links with custom titles using a form interface.
 
 - Run `vanishlink add`
@@ -35,6 +41,7 @@ Add links with custom titles using a form interface.
 - Submit to save bookmark
 
 ### Open
+
 Search and manage saved links.
 
 - Run `vanishlink open`
@@ -45,6 +52,7 @@ Search and manage saved links.
 ## Installation
 
 ### Development Environment
+
 ```bash
 # Install dependencies
 npm install
@@ -63,6 +71,7 @@ npm run fix-lint
 ```
 
 ### Raycast Store
+
 This extension is planned for publication on the Raycast Store.
 
 ## Usage
@@ -90,7 +99,7 @@ This extension is planned for publication on the Raycast Store.
 ## Technical Specifications
 
 - **Supported Platform**: macOS
-- **Dependencies**: 
+- **Dependencies**:
   - @raycast/api
   - @raycast/utils
   - node-html-parser
