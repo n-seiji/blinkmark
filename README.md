@@ -18,7 +18,7 @@ VanishLink is a Raycast Extension designed to efficiently manage links that you 
 - **Form-based manual addition**: Add links with custom titles using a user-friendly form
 - **Automatic title fetching**: Automatically retrieves page titles from meta information
 - **Fast search**: Quickly search by URL or title
-- **Auto-expiration**: Links not accessed for 7 days are automatically deleted
+- **Configurable auto-expiration**: Links not accessed for a configurable period (1 day to 1 year, default: 2 weeks) are automatically deleted
 - **Intuitive operation**: Consistent user experience with Raycast's standard UI
 
 ## Commands
@@ -104,7 +104,7 @@ This extension is planned for publication on the Raycast Store.
   - @raycast/utils
   - node-html-parser
 - **Storage**: Raycast LocalStorage
-- **Auto-deletion**: Links not accessed for 7 days are automatically deleted
+- **Auto-deletion**: Links not accessed for a configurable period (1 day to 1 year, default: 2 weeks) are automatically deleted
 
 ## File Structure
 
@@ -113,8 +113,14 @@ src/
 ├── add-from-clipboard.ts  # Add from clipboard command
 ├── add.tsx               # Form-based add command
 ├── open.tsx              # Link display and management command
-├── types.ts              # Type definitions
-└── utils.ts              # Utility functions
+└── lib/
+    ├── bookmark-delete.ts # Bookmark deletion functionality
+    ├── bookmark-get.ts   # Bookmark retrieval functionality
+    ├── bookmark-save.ts  # Bookmark saving functionality
+    ├── fetch-page-title.ts # Page title fetching
+    ├── is-expired.ts     # Expiration checking
+    ├── types.ts          # Type definitions
+    └── utils.ts          # Utility functions
 ```
 
 ## License
