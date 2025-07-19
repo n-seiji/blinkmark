@@ -20,9 +20,7 @@ export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
   const existingBookmarkJson = await LocalStorage.getItem<string>(bookmark.id);
 
   if (existingBookmarkJson) {
-    throw new Error(
-      `Bookmark with ID ${bookmark.id} already exists for URL: ${bookmark.url}`,
-    );
+    throw new Error("This URL is already bookmarked");
   }
 
   // Save bookmark data

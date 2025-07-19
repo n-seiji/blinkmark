@@ -2,24 +2,47 @@ import { LocalStorage } from "@raycast/api";
 import { isExpired } from "./is-expired";
 import type { BookmarkItem } from "./types";
 
-export async function getBookmarks(): Promise<BookmarkItem[]> {
-	const bookmarks = await LocalStorage.allItems<{
-		// not work if define as BookmarkItem instead of below
-		[key: string]: string;
-	}>();
-	const now = Date.now();
-	const validBookmarks: BookmarkItem[] = [];
+type RawStorage = Record<string, string>;
 
-	for (const [id, bookmarkStr] of Object.entries(bookmarks)) {
-		const bookmark: BookmarkItem = JSON.parse(bookmarkStr);
-		if (isExpired(bookmark.lastAccessedAt, now)) {
-			// TODO refactor to use LocalStorage.removeItem directly
-			console.debug(`Bookmark "${bookmark.url}" expired, deleting`);
-			LocalStorage.removeItem(id);
-			continue;
+export async function getBookmarks(
+	now: number = Date.now(),
+): Promise<BookmarkItem[]> {
+	const raw: RawStorage = await LocalStorage.allItems();
+	const valid: BookmarkItem[] = [];
+	const expiredKeys: string[] = [];
+
+	for (const [key, json] of Object.entries(raw)) {
+		try {
+			const item: BookmarkItem = JSON.parse(json);
+
+			// validate schema
+			if (
+				typeof item.url !== "string" ||
+				typeof item.lastAccessedAt !== "number"
+			) {
+				console.warn(`Invalid bookmark schema in key "${key}"`);
+				expiredKeys.push(key);
+				continue;
+			}
+
+			if (isExpired(item.lastAccessedAt, now)) {
+				expiredKeys.push(key);
+				continue;
+			}
+
+			valid.push(item);
+		} catch (e) {
+			console.error(`Failed to parse bookmark "${key}":`, e);
+			expiredKeys.push(key);
 		}
-		validBookmarks.push(bookmark);
 	}
 
-	return validBookmarks.sort((a, b) => b.lastAccessedAt - a.lastAccessedAt);
+	// delete expired items
+	if (expiredKeys.length) {
+		await Promise.all(expiredKeys.map((k) => LocalStorage.removeItem(k)));
+	}
+
+	valid.sort((a, b) => b.lastAccessedAt - a.lastAccessedAt);
+
+	return valid;
 }
