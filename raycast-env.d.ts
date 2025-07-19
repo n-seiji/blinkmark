@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 type ExtensionPreferences = {
-  /** Expired Time - View extension's README for instructions. */
+  /** Expired Time - Set the expiration time for links. After this period, links will be automatically deleted. */
   "expiredTime": "1day" | "1week" | "2week" | "1month" | "3month" | "6month" | "1year"
 }
 
