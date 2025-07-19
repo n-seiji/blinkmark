@@ -62,11 +62,28 @@ export default function Command() {
 		const date = new Date(timestamp);
 		const now = new Date();
 		const diffTime = now.getTime() - date.getTime();
+
+		const diffSeconds = Math.floor(diffTime / 1000);
+		const diffMinutes = Math.floor(diffTime / (1000 * 60));
+		const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
 		const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-		if (diffDays === 0) {
-			return "Today";
+		// Within 1 minute - show seconds
+		if (diffSeconds < 60) {
+			return `${diffSeconds}s ago`;
 		}
+
+		// Within 1 hour - show minutes
+		if (diffMinutes < 60) {
+			return `${diffMinutes}m ago`;
+		}
+
+		// Within 24 hours - show hours
+		if (diffHours < 24) {
+			return `${diffHours}h ago`;
+		}
+
+		// More than 24 hours - use existing logic
 		if (diffDays === 1) {
 			return "Yesterday";
 		}
