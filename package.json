@@ -15,7 +15,7 @@
       "description": "View extension's README for instructions.",
       "name": "expiredTime",
       "required": true,
-      "default": "2w",
+      "default": "2week",
       "title": "Expired Time",
       "type": "dropdown",
       "data": [
