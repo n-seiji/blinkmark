@@ -11,6 +11,7 @@ import {
   useNavigation,
 } from "@raycast/api";
 import { useEffect, useState } from "react";
+import AddCommand from "./add";
 import { deleteBookmark } from "./lib/bookmark-delete";
 import { getBookmarks } from "./lib/bookmark-get";
 import type { BookmarkItem } from "./lib/types";
@@ -180,7 +181,16 @@ export default function OpenCommand() {
         <List.EmptyView
           icon={Icon.Bookmark}
           title="No saved links"
-          description="Use add commands to add links"
+          description="Press Enter to add a new link"
+          actions={
+            <ActionPanel>
+              <Action
+                title="Add Bookmark"
+                icon={Icon.Plus}
+                onAction={() => push(<AddCommand onAdd={loadBookmarks} />)}
+              />
+            </ActionPanel>
+          }
         />
       ) : (
         bookmarks.map((bookmark) => (

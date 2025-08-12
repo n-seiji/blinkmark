@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Form, Toast, showToast } from "@raycast/api";
+import { Action, ActionPanel, Form, Toast, showToast, useNavigation } from "@raycast/api";
 import { FormValidation, useForm } from "@raycast/utils";
 import { useCallback, useState } from "react";
 import { saveBookmark } from "./lib/bookmark-save";
@@ -11,8 +11,13 @@ interface FormValues {
   title: string;
 }
 
-export default function AddCommand() {
+interface AddCommandProps {
+  onAdd?: () => void;
+}
+
+export default function AddCommand({ onAdd }: AddCommandProps = {}) {
   const [isLoadingTitle, setIsLoadingTitle] = useState(false);
+  const { pop } = useNavigation();
 
   const { handleSubmit, itemProps, setValue, reset } = useForm<FormValues>({
     onSubmit: async (values) => {
@@ -33,7 +38,12 @@ export default function AddCommand() {
         message: bookmark.title,
       });
 
-      reset();
+      if (onAdd) {
+        onAdd();
+        pop();
+      } else {
+        reset();
+      }
     },
     validation: {
       url: (value) => {

@@ -20,8 +20,8 @@ declare namespace Preferences {
   export type AddFromClipboard = ExtensionPreferences & {}
   /** Preferences accessible in the `add` command */
   export type Add = ExtensionPreferences & {}
-  /** Preferences accessible in the `open` command */
-  export type Open = ExtensionPreferences & {}
+  /** Preferences accessible in the `search` command */
+  export type Search = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
@@ -29,7 +29,7 @@ declare namespace Arguments {
   export type AddFromClipboard = {}
   /** Arguments passed to the `add` command */
   export type Add = {}
-  /** Arguments passed to the `open` command */
-  export type Open = {}
+  /** Arguments passed to the `search` command */
+  export type Search = {}
 }
 
