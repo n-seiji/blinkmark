@@ -15,7 +15,8 @@ import AddCommand from "./add";
 import { deleteBookmark } from "./lib/bookmark-delete";
 import { getBookmarks } from "./lib/bookmark-get";
 import type { BookmarkItem } from "./lib/types";
-import { updateLastAccessed, getRemainingTime } from "./lib/utils";
+import { updateLastAccessed, getRemainingMilisecond, isValidUrl } from "./lib/utils";
+import { formatRemainingTime } from "./lib/time-format";
 
 const handleOpenUrl = async (bookmark: BookmarkItem) => {
   try {
@@ -30,24 +31,6 @@ const handleOpenUrl = async (bookmark: BookmarkItem) => {
   }
 };
 
-const formatRemainingTime = (timestamp: number): string => {
-  const { hours, days, totalMs } = getRemainingTime(timestamp);
-
-  if (totalMs <= 0) {
-    return "Expired";
-  }
-
-  if (hours < 1) {
-    const minutes = Math.floor((totalMs % (1000 * 60 * 60)) / (1000 * 60));
-    return `${minutes}m left`;
-  }
-
-  if (hours < 24) {
-    return `${hours}h left`;
-  }
-
-  return `${days}d left`;
-};
 
 export default function OpenCommand() {
   const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
@@ -63,8 +46,8 @@ export default function OpenCommand() {
       const items = await getBookmarks();
       // Sort by remaining time (descending - most time left first)
       const sortedItems = items.sort((a, b) => {
-        const remainingA = getRemainingTime(a.lastAccessedAt).totalMs;
-        const remainingB = getRemainingTime(b.lastAccessedAt).totalMs;
+        const remainingA = getRemainingMilisecond(a.lastAccessedAt).millisecond;
+        const remainingB = getRemainingMilisecond(b.lastAccessedAt).millisecond;
         return remainingB - remainingA;
       });
       setBookmarks(sortedItems);
@@ -109,6 +92,15 @@ export default function OpenCommand() {
           style: Toast.Style.Failure,
           title: "Missing fields",
           message: "URL and title are required",
+        });
+        return;
+      }
+
+      if (!isValidUrl(url.trim())) {
+        await showToast({
+          style: Toast.Style.Failure,
+          title: "Invalid URL",
+          message: "Please enter a valid URL",
         });
         return;
       }
