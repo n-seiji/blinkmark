@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Form, Toast, showToast, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, Form, Toast, popToRoot, showToast, useNavigation } from "@raycast/api";
 import { FormValidation, useForm } from "@raycast/utils";
 import { useCallback, useState } from "react";
 import { saveBookmark } from "./lib/bookmark-save";
@@ -42,7 +42,7 @@ export default function AddCommand({ onAdd }: AddCommandProps = {}) {
         onAdd();
         pop();
       } else {
-        reset();
+        popToRoot();
       }
     },
     validation: {
