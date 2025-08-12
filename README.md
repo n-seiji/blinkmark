@@ -40,14 +40,16 @@ Add links with custom titles using a form interface.
 - URL automatically fetches page title (editable)
 - Submit to save bookmark
 
-### Open
+### Search Links
 
-Search and manage saved links.
+Search and manage saved links with editing capabilities.
 
 - Run `vanishlink search`
 - Search links by title or URL
 - Press Enter to open link (updates last access time)
+- Edit bookmarks via action panel (URL and title)
 - Delete links via action panel
+- Add new bookmarks directly from empty state
 
 ## Installation
 
@@ -92,7 +94,12 @@ This extension is planned for publication on the Raycast Store.
    - Search for links using the search bar
    - Press Enter to open link (last access time is updated)
 
-4. **Deleting links**
+4. **Editing links**
+   - Select a link in `vanishlink search`
+   - Use action panel (`Cmd + K`) to select "Edit Bookmark"
+   - Modify URL or title and submit
+
+5. **Deleting links**
    - Select a link in `vanishlink search`
    - Use action panel (`Cmd + K`) to select "Delete Link"
 
@@ -112,13 +119,15 @@ This extension is planned for publication on the Raycast Store.
 src/
 ├── add-from-clipboard.ts  # Add from clipboard command
 ├── add.tsx               # Form-based add command
-├── open.tsx              # Link display and management command
+├── search.tsx            # Link search, display and management command
 └── lib/
     ├── bookmark-delete.ts # Bookmark deletion functionality
     ├── bookmark-get.ts   # Bookmark retrieval functionality
     ├── bookmark-save.ts  # Bookmark saving functionality
+    ├── constants.ts      # Time constants and expiry configuration
     ├── fetch-page-title.ts # Page title fetching
     ├── is-expired.ts     # Expiration checking
+    ├── time-format.ts    # Time formatting utilities
     ├── types.ts          # Type definitions
     └── utils.ts          # Utility functions
 ```
