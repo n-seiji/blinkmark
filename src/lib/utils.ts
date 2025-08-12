@@ -1,6 +1,27 @@
-import { LocalStorage } from "@raycast/api";
+import { LocalStorage, getPreferenceValues } from "@raycast/api";
 import { createHash } from "node:crypto";
 import type { BookmarkItem } from "./types";
+import { getExpiryDays } from "./is-expired";
+
+const ONE_DAY_MS = 1_000 * 60 * 60 * 24;
+const ONE_HOUR_MS = 1_000 * 60 * 60;
+
+export function getRemainingTime(lastAccessedAt: number, now: number = Date.now()): { hours: number; days: number; totalMs: number } {
+  const preferences = getPreferenceValues<Preferences>();
+  const expiredDays = getExpiryDays(preferences);
+  
+  const expirationTime = lastAccessedAt + (expiredDays * ONE_DAY_MS);
+  const remainingMs = expirationTime - now;
+  
+  const remainingHours = Math.floor(remainingMs / ONE_HOUR_MS);
+  const remainingDays = Math.floor(remainingMs / ONE_DAY_MS);
+  
+  return {
+    hours: remainingHours,
+    days: remainingDays,
+    totalMs: remainingMs
+  };
+}
 
 export function isValidUrl(string: string): boolean {
   try {

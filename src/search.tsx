@@ -15,7 +15,7 @@ import AddCommand from "./add";
 import { deleteBookmark } from "./lib/bookmark-delete";
 import { getBookmarks } from "./lib/bookmark-get";
 import type { BookmarkItem } from "./lib/types";
-import { updateLastAccessed } from "./lib/utils";
+import { updateLastAccessed, getRemainingTime } from "./lib/utils";
 
 const handleOpenUrl = async (bookmark: BookmarkItem) => {
   try {
@@ -30,6 +30,25 @@ const handleOpenUrl = async (bookmark: BookmarkItem) => {
   }
 };
 
+const formatRemainingTime = (timestamp: number): string => {
+  const { hours, days, totalMs } = getRemainingTime(timestamp);
+
+  if (totalMs <= 0) {
+    return "Expired";
+  }
+
+  if (hours < 1) {
+    const minutes = Math.floor((totalMs % (1000 * 60 * 60)) / (1000 * 60));
+    return `${minutes}m left`;
+  }
+
+  if (hours < 24) {
+    return `${hours}h left`;
+  }
+
+  return `${days}d left`;
+};
+
 export default function OpenCommand() {
   const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +61,13 @@ export default function OpenCommand() {
   const loadBookmarks = async () => {
     try {
       const items = await getBookmarks();
-      setBookmarks(items);
+      // Sort by remaining time (descending - most time left first)
+      const sortedItems = items.sort((a, b) => {
+        const remainingA = getRemainingTime(a.lastAccessedAt).totalMs;
+        const remainingB = getRemainingTime(b.lastAccessedAt).totalMs;
+        return remainingB - remainingA;
+      });
+      setBookmarks(sortedItems);
     } catch (error) {
       await showToast({
         style: Toast.Style.Failure,
@@ -136,41 +161,6 @@ export default function OpenCommand() {
     );
   }
 
-  const formatDate = (timestamp: number): string => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffTime = now.getTime() - date.getTime();
-
-    const diffSeconds = Math.floor(diffTime / 1000);
-    const diffMinutes = Math.floor(diffTime / (1000 * 60));
-    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-    // Within 1 minute - show seconds
-    if (diffSeconds < 60) {
-      return `${diffSeconds}s ago`;
-    }
-
-    // Within 1 hour - show minutes
-    if (diffMinutes < 60) {
-      return `${diffMinutes}m ago`;
-    }
-
-    // Within 24 hours - show hours
-    if (diffHours < 24) {
-      return `${diffHours}h ago`;
-    }
-
-    // More than 24 hours - use existing logic
-    if (diffDays === 1) {
-      return "Yesterday";
-    }
-    if (diffDays < 7) {
-      return `${diffDays} days ago`;
-    }
-    return date.toLocaleDateString("en-US");
-  };
-
   return (
     <List
       isLoading={isLoading}
@@ -198,7 +188,7 @@ export default function OpenCommand() {
             key={bookmark.id}
             title={bookmark.title}
             subtitle={bookmark.url}
-            accessories={[{ text: ` ${formatDate(bookmark.lastAccessedAt)}` }]}
+            accessories={[{ text: ` ${formatRemainingTime(bookmark.lastAccessedAt)}` }]}
             keywords={[bookmark.title, bookmark.url]}
             actions={
               <ActionPanel>

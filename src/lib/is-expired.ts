@@ -3,7 +3,7 @@ import { getPreferenceValues } from "@raycast/api";
 const ONE_DAY_MS = 1_000 * 60 * 60 * 24;
 const EXPIRY_DAYS = 7;
 
-function getExpiryDays(preferences: Preferences): number {
+export function getExpiryDays(preferences: Preferences): number {
   switch (preferences.expiredTime) {
     case "1day":
       return 1;
