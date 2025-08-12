@@ -54,19 +54,22 @@
     {
       "name": "add-from-clipboard",
       "title": "Add from Clipboard",
+      "subtitle": "Vanishlink",
       "description": "Add a link from clipboard. If clipboard content is not a URL, show error message and exit. Title is fetched from website meta information.",
       "mode": "no-view"
     },
     {
       "name": "add",
       "title": "Add Bookmark",
+      "subtitle": "Vanishlink",
       "description": "Add a bookmark by entering URL and title. Title is automatically fetched when URL is entered. Also you can edit title.",
       "mode": "view"
     },
     {
-      "name": "open",
-      "title": "Open",
+      "name": "search",
+      "title": "Search Links",
       "description": "Search registered links by URL or title text matching, press enter to open in browser.",
+      "subtitle": "Vanishlink",
       "mode": "view"
     }
   ],

@@ -44,7 +44,7 @@ Add links with custom titles using a form interface.
 
 Search and manage saved links.
 
-- Run `vanishlink open`
+- Run `vanishlink search`
 - Search links by title or URL
 - Press Enter to open link (updates last access time)
 - Delete links via action panel
@@ -88,12 +88,12 @@ This extension is planned for publication on the Raycast Store.
    - Submit to save bookmark
 
 3. **Searching and opening links**
-   - Open Raycast and run `vanishlink open`
+   - Open Raycast and run `vanishlink search`
    - Search for links using the search bar
    - Press Enter to open link (last access time is updated)
 
 4. **Deleting links**
-   - Select a link in `vanishlink open`
+   - Select a link in `vanishlink search`
    - Use action panel (`Cmd + K`) to select "Delete Link"
 
 ## Technical Specifications

@@ -1,4 +1,4 @@
-# vanishlink
+# Vanishlink
 
 <p align="center">
    <img src="assets/extension-icon.png" alt="VanishLink Icon" width="100" height="100">
@@ -41,7 +41,7 @@ VanishLinkは、短期間だけ必要なリンクを効率的に管理するた�
 
 保存されたリンクを検索・管理します。
 
-- `vanishlink open`を実行
+- `vanishlink search`を実行
 - リンクを検索（タイトルまたはURL）
 - Enterキーでリンクを開く
 - アクションパネルから削除も可能
@@ -85,12 +85,12 @@ npm run fix-lint
    - 送信してブックマークを保存
 
 3. **リンクの検索・開く**
-   - Raycastを開いて`vanishlink open`を実行
+   - Raycastを開いて`vanishlink search`を実行
    - 検索バーでリンクを検索
    - Enterキーでリンクを開く（最終アクセス日時が更新されます）
 
 4. **リンクの削除**
-   - `vanishlink open`でリンクを選択
+   - `vanishlink search`でリンクを選択
    - アクションパネル（`Cmd + K`）から「リンクを削除」を選択
 
 ## 技術仕様
