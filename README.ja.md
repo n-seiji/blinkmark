@@ -4,7 +4,7 @@
    <img src="assets/extension-icon.png" alt="VanishLink Icon" width="100" height="100">
 </p>
 
-一時的に必要なリンクを素早く管理するためのRaycast Extension
+一時的に必要なリンクを素早く管理するための Raycast Extension
 
 ## 概要
 
