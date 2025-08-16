@@ -3,6 +3,7 @@ import {
   ActionPanel,
   Form,
   Icon,
+  Keyboard,
   List,
   LocalStorage,
   Toast,
@@ -164,6 +165,7 @@ export default function OpenCommand() {
                   title="Delete Link"
                   icon={Icon.Trash}
                   style={Action.Style.Destructive}
+                  shortcut={Keyboard.Shortcut.Common.Remove}
                   onAction={() => handleDeleteBookmark(bookmark.id)}
                 />
               </ActionPanel>
