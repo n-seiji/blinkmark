@@ -4,9 +4,7 @@ import type { BookmarkItem } from "./types";
 
 type RawStorage = Record<string, string>;
 
-export async function getBookmarks(
-  now: number = Date.now(),
-): Promise<BookmarkItem[]> {
+export async function getBookmarks(now: number = Date.now()): Promise<BookmarkItem[]> {
   const raw: RawStorage = await LocalStorage.allItems();
   const valid: BookmarkItem[] = [];
   const expiredKeys: string[] = [];
@@ -16,10 +14,7 @@ export async function getBookmarks(
       const item: BookmarkItem = JSON.parse(json);
 
       // validate schema
-      if (
-        typeof item.url !== "string" ||
-        typeof item.lastAccessedAt !== "number"
-      ) {
+      if (typeof item.url !== "string" || typeof item.lastAccessedAt !== "number") {
         console.warn(`Invalid bookmark schema in key "${key}"`);
         expiredKeys.push(key);
         continue;

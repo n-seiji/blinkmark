@@ -8,11 +8,11 @@ export function getRemainingMilisecond(lastAccessedAt: number, now: number = Dat
   const preferences = getPreferenceValues<Preferences>();
   const expiredDays = getExpiryDays(preferences);
 
-  const expirationTime = lastAccessedAt + (expiredDays * TIME_CONSTANTS.ONE_DAY_MS);
+  const expirationTime = lastAccessedAt + expiredDays * TIME_CONSTANTS.ONE_DAY_MS;
   const remainingMs = expirationTime - now;
 
   return {
-    millisecond: remainingMs
+    millisecond: remainingMs,
   };
 }
 

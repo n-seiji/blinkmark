@@ -31,7 +31,6 @@ const handleOpenUrl = async (bookmark: BookmarkItem) => {
   }
 };
 
-
 export default function OpenCommand() {
   const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,13 +74,7 @@ export default function OpenCommand() {
     push(<EditBookmarkForm bookmark={bookmark} onEdit={loadBookmarks} />);
   };
 
-  function EditBookmarkForm({
-    bookmark,
-    onEdit,
-  }: {
-    bookmark: BookmarkItem;
-    onEdit: () => void;
-  }) {
+  function EditBookmarkForm({ bookmark, onEdit }: { bookmark: BookmarkItem; onEdit: () => void }) {
     const { pop } = useNavigation();
     const [url, setUrl] = useState(bookmark.url);
     const [title, setTitle] = useState(bookmark.title);
@@ -128,37 +121,18 @@ export default function OpenCommand() {
       <Form
         actions={
           <ActionPanel>
-            <Action.SubmitForm
-              title="Update Bookmark"
-              onSubmit={handleSubmit}
-            />
+            <Action.SubmitForm title="Update Bookmark" onSubmit={handleSubmit} />
           </ActionPanel>
         }
       >
-        <Form.TextField
-          id="url"
-          title="URL"
-          value={url}
-          onChange={setUrl}
-          placeholder="https://example.com"
-        />
-        <Form.TextField
-          id="title"
-          title="Title"
-          value={title}
-          onChange={setTitle}
-          placeholder="Page title"
-        />
+        <Form.TextField id="url" title="URL" value={url} onChange={setUrl} placeholder="https://example.com" />
+        <Form.TextField id="title" title="Title" value={title} onChange={setTitle} placeholder="Page title" />
       </Form>
     );
   }
 
   return (
-    <List
-      isLoading={isLoading}
-      searchBarPlaceholder="Search links..."
-      filtering={true}
-    >
+    <List isLoading={isLoading} searchBarPlaceholder="Search links..." filtering={true}>
       {bookmarks.length === 0 ? (
         <List.EmptyView
           icon={Icon.Bookmark}
@@ -184,16 +158,8 @@ export default function OpenCommand() {
             keywords={[bookmark.title, bookmark.url]}
             actions={
               <ActionPanel>
-                <Action
-                  title="Open URL"
-                  icon={Icon.Globe}
-                  onAction={() => handleOpenUrl(bookmark)}
-                />
-                <Action
-                  title="Edit Bookmark"
-                  icon={Icon.Pencil}
-                  onAction={() => handleEditBookmark(bookmark)}
-                />
+                <Action title="Open URL" icon={Icon.Globe} onAction={() => handleOpenUrl(bookmark)} />
+                <Action title="Edit Bookmark" icon={Icon.Pencil} onAction={() => handleEditBookmark(bookmark)} />
                 <Action
                   title="Delete Link"
                   icon={Icon.Trash}

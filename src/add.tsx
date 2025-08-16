@@ -19,7 +19,7 @@ export default function AddCommand({ onAdd }: AddCommandProps = {}) {
   const [isLoadingTitle, setIsLoadingTitle] = useState(false);
   const { pop } = useNavigation();
 
-  const { handleSubmit, itemProps, setValue, reset } = useForm<FormValues>({
+  const { handleSubmit, itemProps, setValue } = useForm<FormValues>({
     onSubmit: async (values) => {
       const now = Date.now();
       const bookmark: BookmarkItem = {
@@ -82,11 +82,7 @@ export default function AddCommand({ onAdd }: AddCommandProps = {}) {
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm
-            title="Add Bookmark"
-            icon="bookmark"
-            onSubmit={handleSubmit}
-          />
+          <Action.SubmitForm title="Add Bookmark" icon="bookmark" onSubmit={handleSubmit} />
         </ActionPanel>
       }
     >

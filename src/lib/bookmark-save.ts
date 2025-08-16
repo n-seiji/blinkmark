@@ -7,10 +7,7 @@ export async function saveBookmark(bookmark: BookmarkItem): Promise<void> {
     throw new Error("Invalid bookmark data: missing required fields");
   }
 
-  if (
-    typeof bookmark.createdAt !== "number" ||
-    typeof bookmark.lastAccessedAt !== "number"
-  ) {
+  if (typeof bookmark.createdAt !== "number" || typeof bookmark.lastAccessedAt !== "number") {
     throw new Error("Invalid bookmark data: timestamps must be numbers");
   }
 
